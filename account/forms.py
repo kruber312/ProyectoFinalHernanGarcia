@@ -3,8 +3,8 @@ from django import forms
 from django.contrib.auth.models import User
 
 class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
-    imagen = forms.ImageField()
+    email = forms.EmailField(required=False)
+    imagen = forms.ImageField(required=False)
 
     class Meta:
         model = User

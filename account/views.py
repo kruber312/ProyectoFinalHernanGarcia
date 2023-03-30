@@ -39,11 +39,11 @@ def editar_usuario(request):
     return render(request, "form.html", context=context)
 def register_account(request):
     if request.method == "POST":
-        form = UserRegisterForm(request.POST, request.FILES)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("accountLogin")
-    form = UserRegisterForm()
+    form = UserCreationForm
     context= {
         "form": form,
         "titulo": "Registrar Usuario",

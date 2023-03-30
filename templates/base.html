@@ -8,11 +8,12 @@
     <!-- Barra de Navegacion-->
     <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="navbar-brand" href="{% url 'accountLogin' %}">Login</a>
+
 
                 {% if user.is_authenticated %}
                     <img src="{{ user.avatar.imagen.url }}" alt="Usuario" height="60px">
                     <a class="navbar-brand">{{ user.username }}</a>
+                    <a class="btn btn-primary" href="{% url "editarUsuario" %}">Perfil</a>
                     <a class="btn btn-primary" href="{% url "accountLogout" %}">Logout</a>
                 {% else %}
                     <a class="btn btn-primary" href="{% url "accountRegistrar" %}">Registrar</a>
