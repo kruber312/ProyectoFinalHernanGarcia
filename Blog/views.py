@@ -1,8 +1,10 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from Blog.forms import paginaForm
 from django.contrib.auth.decorators import login_required
 from Blog.models import pagina
-from datetime import date
+from datetime import datetime
 
 # Create your views here.
 @login_required
@@ -16,7 +18,7 @@ def crear_pagina(request):
                 subtitulo=info["subtitulo"],
                 cuerpo=info["cuerpo"],
                 autor=request.user,
-                fecha=date.today(),
+                fecha=datetime.now(),
             )
             info_save.save()
             return redirect("crearPagina")
@@ -29,4 +31,18 @@ def crear_pagina(request):
         "boton": "Crear",
     }
     return render(request, "form.html", context=context)
-    pass
+
+
+def ver_paginas(request):
+    paginas = pagina.objects.order_by('-fecha')[:9]
+    context = {
+        "paginas" : paginas
+    }
+    return render(request, "blog/ver_paginas.html", context=context)
+
+def vista_pagina(request,codigo):
+    pag = pagina.objects.get(id=codigo)
+    context = {
+        "pagina": pag
+    }
+    return render(request, "blog/pagina.html", context=context)

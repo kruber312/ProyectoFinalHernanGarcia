@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block contenido_cambia %}
+        <h1>{{ pagina.titulo }}</h1>
+        <h3>{{ pagina.subtitulo }}</h3>
+        <p>{{ pagina.cuerpo }}</p>
+        <p>Creado el: {{ pagina.fecha }}</p>
+        <p>Autor: {{ pagina.autor }}</p>
+{% endblock %}
