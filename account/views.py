@@ -11,12 +11,10 @@ def editar_usuario(request):
     user = request.user
     if request.method == "POST":
         form = UserEditForm(request.POST, request.FILES)
-        print("post")
         if form.is_valid():
-            print("valid")
             info = form.cleaned_data
             # Actualizar el nombre de usuario y el correo electrónico del usuario
-            user.username = info["username"]
+            #user.username = info["username"]
             user.email = info["email"]
             # Actualizar la imagen de perfil del usuario si se proporcionó una nueva
             try:

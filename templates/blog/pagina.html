@@ -3,7 +3,23 @@
 {% block contenido_cambia %}
         <h1>{{ pagina.titulo }}</h1>
         <h3>{{ pagina.subtitulo }}</h3>
+        {% if pagina.imagen %}
+        <img src="{{ pagina.imagen.url }}" height="300px">
+        {% endif %}
         <p>{{ pagina.cuerpo }}</p>
-        <p>Creado el: {{ pagina.fecha }}</p>
-        <p>Autor: {{ pagina.autor }}</p>
+        <p>Escrito por: <a href="{% url "verPaginasUsuario" pagina.autor %}">{{ pagina.autor }}</a> el: {{ pagina.fecha.date }} a las {{ pagina.fecha.time }}</p>
+
+        <h3>Comentarios</h3>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value={{ boton }}>
+        </form>
+        {% if comentarios %}
+            {% for comment in comentarios %}
+                <p>{{ comment.cuerpo }}</p>
+                <p>Escrito por: <a href="{% url "verPaginasUsuario" comment.autor %}">{{ comment.autor }}</a> el: {{ comment.fecha.date }} a las {{ comment.fecha.time }}</p>
+            {% endfor %}
+        {% else %}
+        {% endif %}
 {% endblock %}

@@ -9,10 +9,12 @@
     <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="btn btn-primary" href="{% url "verPagina" %}">Paginas</a>
-                <a class="btn btn-primary" href="{% url "crearPagina" %}">Crear Pagina</a>
+
 
                 {% if user.is_authenticated %}
-                    <img src="{{ user.avatar.imagen.url }}" alt="Usuario" height="60px">
+                    <a class="btn btn-primary" href="{% url "crearPagina" %}">Crear Pagina</a>
+
+                    <img src="{{ user.avatar.imagen.url }}" alt="Fotito" height="60px">
                     <a class="btn btn-primary" href="{% url "editarUsuario" %}">{{ user.username }}</a>
                     <a class="btn btn-primary" href="{% url "accountLogout" %}">Logout</a>
                 {% else %}

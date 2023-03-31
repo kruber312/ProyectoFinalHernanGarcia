@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block contenido_cambia %}
-    <h1>Paginas </h1>
+    <h1>{{ titulo }}</h1>
     {% for pagina in paginas %}
         <h2>{{ pagina.titulo }}</h2>
         <p>{{ pagina.cuerpo|slice:":20" }}...<a href="{% url "pagina" pagina.id %}">Leer Mas</a></p>
-        <p>Autor: {{ pagina.autor }}</p>
+        <p>Escrito por: <a href="{% url "verPaginasUsuario" pagina.autor %}">{{ pagina.autor }}</a></p>
     {% endfor %}
 
 {% endblock %}
