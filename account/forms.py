@@ -8,7 +8,7 @@ class UserRegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ("username", "email", "imagen")
+        fields = ("username", "email")
 
 class UserEditForm(UserChangeForm):
     email = forms.EmailField(required=False)

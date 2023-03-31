@@ -40,12 +40,12 @@ def editar_usuario(request):
 # Vista para registrar una cuenta de usuario
 def register_account(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("accountLogin")
     # Mostrar el formulario para registrar una cuenta de usuario
-    form = UserCreationForm
+    form = UserRegisterForm
     context= {
         "form": form,
         "titulo": "Registrar Usuario",

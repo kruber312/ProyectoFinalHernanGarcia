@@ -1,5 +1,3 @@
-import datetime
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from Blog.forms import paginaForm, commentForm, messageForm
@@ -50,31 +48,34 @@ def filter_paginas_usuario(request, usuario):
     return render(request, "blog/ver_paginas.html", context=context)
 
 def vista_pagina(request,codigo):
-    pag = Pagina.objects.get(id=codigo)
-    form = commentForm()
-    if request.method == "POST":
-        com = commentForm(request.POST)
-        if com.is_valid():
-            info = com.cleaned_data
-            info_save = Comment(
-                cuerpo=info["cuerpo"],
-                autor=request.user,
-                fecha=datetime.now(),
-                page=pag,
-            )
-            info_save.save()
-    comentarios = Comment.objects.filter(page_id=pag.id)
-    comentarios = comentarios.order_by('-fecha')
+    if request.user.is_authenticated:
+        pag = Pagina.objects.get(id=codigo)
+        form = commentForm()
+        if request.method == "POST":
+            com = commentForm(request.POST)
+            if com.is_valid():
+                info = com.cleaned_data
+                info_save = Comment(
+                    cuerpo=info["cuerpo"],
+                    autor=request.user,
+                    fecha=datetime.now(),
+                    page=pag,
+                )
+                info_save.save()
+        comentarios = Comment.objects.filter(page_id=pag.id)
+        comentarios = comentarios.order_by('-fecha')
 
-    context = {
-        "pagina": pag,
-        "form": form,
-        "titulo": "Escribir Comentario",
-        "boton": "Comentar",
-        "comentarios": comentarios
-    }
-    return render(request, "blog/pagina.html", context=context)
-
+        context = {
+            "pagina": pag,
+            "form": form,
+            "titulo": "Escribir Comentario",
+            "boton": "Comentar",
+            "comentarios": comentarios
+        }
+        return render(request, "blog/pagina.html", context=context)
+    else:
+        context = {"mensajes": ["Por favor Logueate para ver las paginas"]}
+        return render(request, "error.html",context=context)
 def comentario(request,pag):
     if request.method == "POST":
         com = commentForm(request.POST)

@@ -6,5 +6,5 @@ urlpatterns = [
     path('login',login_account,name="accountLogin"),
     path('editar_usuario',editar_usuario,name="editarUsuario"),
     path('logout',LogoutView.as_view(template_name="account/logout.html"),name="accountLogout"),
-    path('registrar',register_account,name="accountRegistrar"),
+    path('signup',register_account,name="accountRegistrar"),
 ]

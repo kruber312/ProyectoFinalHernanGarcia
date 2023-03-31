@@ -16,10 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from django.conf.urls import handler404
 from ProyectoFinal import settings
+from ProyectoFinal.views import about, notfound
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('about/',about, name="acercaDeMi" ),
+    path('notfound/',notfound, name="notFound" ),
     path('pages/', include('Blog.url')),
     path('account/', include('account.url')),
+    path('*/',notfound, name="asascaDeMi" ),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'ProyectoFinal.views.notfound'
