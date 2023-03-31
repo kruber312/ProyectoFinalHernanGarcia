@@ -21,3 +21,12 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'Pagina: {self.page.titulo}, Autor: {self.autor.username}'
+
+class Message(models.Model):
+    de = models.ForeignKey(User, models.CASCADE,null=True,related_name='de_messages')
+    para = models.ForeignKey(User, models.CASCADE,null=True,related_name='para_messages')
+    cuerpo = models.TextField(null=True)
+    fecha = models.DateTimeField(null=True)
+
+    def __str__(self):
+        return f'Mensaje, De: {self.de.username}, Para: {self.para.username} '

@@ -16,6 +16,7 @@
 
                     <img src="{{ user.avatar.imagen.url }}" alt="Fotito" height="60px">
                     <a class="btn btn-primary" href="{% url "editarUsuario" %}">{{ user.username }}</a>
+                    <a class="btn btn-primary" href="{% url "mensajes" %}">Mensajes</a>
                     <a class="btn btn-primary" href="{% url "accountLogout" %}">Logout</a>
                 {% else %}
                     <a class="btn btn-primary" href="{% url "accountRegistrar" %}">Registrar</a>

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block contenido_cambia %}
+    <h1>{{ titulo }}</h1>
+    <a href="{% url "nuevoMensaje" %}">Nuevo Mensaje</a>
+    {% for mensaje in msg %}
+        <h2>{{ mensaje.titulo }}</h2>
+        <p>{{ mensaje.cuerpo }}</p>
+        <p>Escrito por: <a href="{% url "verPaginasUsuario" mensaje.de %}">{{ mensaje.de }}</a>
+        el {{ mensaje.fecha.date }} a las: {{ mensaje.fecha.time }}</p>
+    {% endfor %}
+
+{% endblock %}

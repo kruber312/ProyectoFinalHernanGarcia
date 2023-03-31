@@ -7,3 +7,7 @@ class paginaForm(forms.Form):
 
 class commentForm(forms.Form):
     cuerpo = forms.CharField()
+
+class messageForm(forms.Form):
+    para = forms.CharField(max_length=40)
+    cuerpo = forms.CharField()

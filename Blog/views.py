@@ -1,9 +1,10 @@
 import datetime
 
 from django.shortcuts import render, redirect
-from Blog.forms import paginaForm, commentForm
+from django.contrib.auth.models import User
+from Blog.forms import paginaForm, commentForm, messageForm
 from django.contrib.auth.decorators import login_required
-from Blog.models import Pagina, Comment
+from Blog.models import Pagina, Comment, Message
 from datetime import datetime
 
 # Create your views here.
@@ -24,7 +25,6 @@ def crear_pagina(request):
             info_save.save()
             return redirect("crearPagina")
 
-
     form = paginaForm()
     context = {
         "form": form,
@@ -42,7 +42,7 @@ def ver_paginas(request):
     return render(request, "blog/ver_paginas.html", context=context)
 
 def filter_paginas_usuario(request, usuario):
-    paginas = Pagina.objects.filter(autor__username__icontains=usuario)
+    paginas = Pagina.objects.filter(autor__username__iexact=usuario)
     context = {
         "paginas" : paginas,
         "titulo": f"Posts de {usuario}"
@@ -95,5 +95,41 @@ def comentario(request,pag):
         "titulo": "Escribir Comentario",
         "boton": "Comentar",
         "pagina": pag
+    }
+    return render(request, "form.html", context=context)
+
+def mensajes(request):
+    mensajes_para = Message.objects.filter(para=request.user)
+    print(mensajes_para)
+    context = {
+        "msg" : mensajes_para,
+        "titulo": f"Mensajes de {request.user.username}"
+    }
+    return render(request, "blog/mensajes.html", context=context)
+
+def mensaje_nuevo(request):
+    if request.method == "POST":
+        msg = messageForm(request.POST)
+        if msg.is_valid():
+            info = msg.cleaned_data
+            try:
+                info_save = Message(
+                    cuerpo=info["cuerpo"],
+                    de=request.user,
+                    fecha=datetime.now(),
+                    para=User.objects.get(username__iexact=info["para"]),
+                )
+                info_save.save()
+                return redirect("mensajes")
+            except User.DoesNotExist:
+                context = {
+                    "mensajes": ["El usuario no existe"],
+                }
+            return render(request, "error.html", context=context)
+    form = messageForm()
+    context = {
+        "form": form,
+        "titulo":"Escribir Mensaje",
+        "boton": "Enviar",
     }
     return render(request, "form.html", context=context)
