@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block contenido_cambia %}
+    <h1>Perfil de {{ perfil.username }}
+    {% if perfil == user %}
+        <a class="btn btn-primary" href="{% url "editarUsuario" %}">Editar Usuario</a>
+    {% else %}
+        <a class="btn btn-primary" href="{% url "nuevoMensajeA" perfil %}">Mensaje Directo</a>
+    {% endif %}
+    </h1>
+    <p>Email: {{ perfil.email }}</p>
+    <p>Avatar: <img src="{{ user.avatar.imagen.url }}" alt="Imagen de Perfil" class="avatar" height="60px"></p>
+
+    <h1>Publicaciones</h1>
+    {% if paginas %}
+        {% for pagina in paginas %}
+            <h2>{{ pagina.titulo }}</h2>
+            <p>{{ pagina.cuerpo|slice:":20" }}...<a href="{% url "pagina" pagina.id %}">Leer Mas</a></p>
+            <p>Escrito por: <a href="{% url "profile" pagina.autor %}">{{ pagina.autor }}</a></p>
+    {% endfor %}
+    {% else %}
+        No hay publicaciones de este usuario
+    {% endif %}
+{% endblock %}

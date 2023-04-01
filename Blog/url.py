@@ -6,7 +6,7 @@ urlpatterns = [
     path('ver_pagina/',ver_paginas,name="verPagina"),
     path('pagina/<codigo>',vista_pagina,name="pagina"),
     path('pagina/comment/<pag>',comentario,name="comentar"),
-    path('ver_pagina/<usuario>',filter_paginas_usuario,name="verPaginasUsuario"),
     path('mensajes',mensajes,name="mensajes"),
-    path('mensajes_nuevo',mensaje_nuevo,name="nuevoMensaje"),
+    path('mensajes_nuevo/<para>',mensaje_nuevo,name="nuevoMensajeA"),
+    path('mensajes_nuevo/',mensaje_nuevo,name="nuevoMensaje"),
 ]

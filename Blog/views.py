@@ -21,7 +21,7 @@ def crear_pagina(request):
                 imagen=info["imagen"]
             )
             info_save.save()
-            return redirect("crearPagina")
+            return redirect("pagina",info_save.id)
 
     form = paginaForm()
     context = {
@@ -35,21 +35,30 @@ def crear_pagina(request):
 def ver_paginas(request):
     paginas = Pagina.objects.order_by('-fecha')[:9]
     context = {
-        "paginas" : paginas
+        "paginas" : paginas,
+        "titulo":"Ultimas paginas"
     }
     return render(request, "blog/ver_paginas.html", context=context)
 
 def filter_paginas_usuario(request, usuario):
     paginas = Pagina.objects.filter(autor__username__iexact=usuario)
-    context = {
-        "paginas" : paginas,
-        "titulo": f"Posts de {usuario}"
-    }
-    return render(request, "blog/ver_paginas.html", context=context)
+    if paginas:
+        context = {
+            "paginas" : paginas,
+            "titulo": f"Posts de {usuario}"
+        }
+        return render(request, "blog/ver_paginas.html", context=context)
+    else:
+        context = {"mensajes": ["Esa pagina no existe"]}
+        return render(request, "error.html",context=context)
 
 def vista_pagina(request,codigo):
     if request.user.is_authenticated:
-        pag = Pagina.objects.get(id=codigo)
+        try:
+            pag = Pagina.objects.get(id=codigo)
+        except ValueError:
+            context = {"mensajes": ["Esa pagina no existe"]}
+            return render(request, "error.html", context=context)
         form = commentForm()
         if request.method == "POST":
             com = commentForm(request.POST)
@@ -108,7 +117,7 @@ def mensajes(request):
     }
     return render(request, "blog/mensajes.html", context=context)
 
-def mensaje_nuevo(request):
+def mensaje_nuevo(request, para = ""):
     if request.method == "POST":
         msg = messageForm(request.POST)
         if msg.is_valid():
@@ -127,7 +136,9 @@ def mensaje_nuevo(request):
                     "mensajes": ["El usuario no existe"],
                 }
             return render(request, "error.html", context=context)
-    form = messageForm()
+    form = messageForm(initial={
+        "para":para
+    })
     context = {
         "form": form,
         "titulo":"Escribir Mensaje",

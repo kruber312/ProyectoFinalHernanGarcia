@@ -6,7 +6,7 @@
     {% for mensaje in msg %}
         <h2>{{ mensaje.titulo }}</h2>
         <p>{{ mensaje.cuerpo }}</p>
-        <p>Escrito por: <a href="{% url "verPaginasUsuario" mensaje.de %}">{{ mensaje.de }}</a>
+        <p>Escrito por: <a href="{% url "profile" mensaje.de %}">{{ mensaje.de }}</a>
         el {{ mensaje.fecha.date }} a las: {{ mensaje.fecha.time }}</p>
     {% endfor %}
 

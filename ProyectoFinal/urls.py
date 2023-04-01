@@ -25,7 +25,7 @@ urlpatterns = [
     path('notfound/',notfound, name="notFound" ),
     path('pages/', include('Blog.url')),
     path('account/', include('account.url')),
-    path('*/',notfound, name="asascaDeMi" ),
+    path('*/',notfound, name="notFound" ),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
