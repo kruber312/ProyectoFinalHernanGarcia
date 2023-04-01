@@ -56,7 +56,7 @@ def vista_pagina(request,codigo):
     if request.user.is_authenticated:
         try:
             pag = Pagina.objects.get(id=codigo)
-        except ValueError:
+        except:
             context = {"mensajes": ["Esa pagina no existe"]}
             return render(request, "error.html", context=context)
         form = commentForm()

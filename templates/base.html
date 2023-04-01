@@ -79,9 +79,10 @@
             {% if user.is_authenticated %}
                 <a class="btn btn-primary" href="{% url "crearPagina" %}">Crear publicación</a>
                 <a class="btn btn-primary" href="{% url "acercaDeMi" %}">Acerca de mi</a>
+                <a class="btn btn-primary" href="{% url "mensajes" %}"><i class="fas fa-envelope"></i> Mensajes</a>
                 <img src="{{ user.avatar.imagen.url }}" alt="Imagen de Perfil" class="avatar" height="60px">
                 <a class="btn btn-primary" href="{% url "profile" user.username %}">{{ user.username }}</a>
-                <a class="btn btn-primary" href="{% url "mensajes" %}"><i class="fas fa-envelope"></i> Mensajes</a>
+
                 <a class="btn btn-primary" href="{% url "accountLogout" %}">Cerrar sesión</a>
             {% else %}
                 <a class="btn btn-primary" href="{% url "acercaDeMi" %}">Acerca de mi</a>
