@@ -18,9 +18,11 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from ProyectoFinal import settings
 from ProyectoFinal.views import about, notfound
+from Blog.views import ver_paginas
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',ver_paginas, name="verPagina"),
     path('about/',about, name="acercaDeMi" ),
     path('notfound/',notfound, name="notFound" ),
     path('pages/', include('Blog.url')),
