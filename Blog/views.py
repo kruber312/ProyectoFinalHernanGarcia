@@ -133,7 +133,6 @@ def comentario(request,pag):
 def mensajes(request):
     # Se obtienen los mensajes que se han enviado al usuario logueado.
     mensajes_para = Message.objects.filter(para=request.user)
-    print(mensajes_para)
     # Se crea un contexto con los mensajes obtenidos.
     context = {
         "msg" : mensajes_para,
