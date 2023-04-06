@@ -1,6 +1,7 @@
 # Web estilo Blog por Hernan Garcia
 
-Se puede entrar a la web a partir de la pagina principal http://127.0.0.1:8000/
+Se puede entrar a la web a partir de la pagina principal http://127.0.0.1:8000/.
+Video describiendo el proyecto: https://drive.google.com/file/d/1V--DMjNqbLudq-795-Q9BnLVW4NQkEhs/view?usp=share_link
 Al cargar esa direccion deberiamos poder ver los ultimos "blogs" que han creado los usuarios.
 
 
